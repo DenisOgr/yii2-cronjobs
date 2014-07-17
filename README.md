@@ -29,6 +29,9 @@ or add
 ```
 
 to the require section of your `composer.json` file.
+
+Usage
+-----
 Add in params array with cron sets:
 ```
 'cronJobs' =>[
@@ -42,6 +45,5 @@ Add in params array with cron sets:
     ],
 ```
 You can point any settings from [this](https://github.com/Yiivgeny/Yii-PHPDocCrontab/blob/master/examples/ExampleRuCommand.php).
-Usage
------
+
 
