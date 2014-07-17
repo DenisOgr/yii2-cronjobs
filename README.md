@@ -33,6 +33,7 @@ to the require section of your `composer.json` file.
 Change path to runner script as your project. 
 ```
 Yii::setAlias('@runnerScript', dirname(dirname(dirname(__FILE__))) .'/yii');
+```
 - **Step 3:** Add to console config:
 ```
 'controllerMap' => [
