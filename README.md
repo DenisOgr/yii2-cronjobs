@@ -45,7 +45,3 @@ You can point any settings from [this](https://github.com/Yiivgeny/Yii-PHPDocCro
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
-
-```php
-<?= \denisog\cronjobs\AutoloadExample::widget(); ?>```
