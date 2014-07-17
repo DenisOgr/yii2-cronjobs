@@ -287,7 +287,11 @@ RAW;
     protected function prepareActions()
     {
         $actions = array();
-        $methods = Yii::$app->params['cronJobs'];
+        try {
+            $methods = Yii::$app->params['cronJobs'];
+        }catch (yii\base\ErrorException $e) {
+            throw new yii\base\ErrorException('Empty param cronJobs in params. ',8);
+        }
 
         if (!empty($methods)) {
 
