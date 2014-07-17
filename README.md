@@ -14,7 +14,7 @@ I transfer ​​settings of crontab in local settings(params) configuration, so
 Installation
 ------------
 
-**Step 1:**The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+- **Step 1:** The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 Either run
 
@@ -29,8 +29,11 @@ or add
 ```
 
 to the require section of your `composer.json` file.
-
-**Step 2:** Add to console config:
+- **Step 2:** Set aliase  @runnerScript in console config. This absolutely path to runner script (I can not find another way to get runner script).
+Change path to runner script as your project. 
+```
+Yii::setAlias('@runnerScript', dirname(dirname(dirname(__FILE__))) .'/yii');
+- **Step 3:** Add to console config:
 ```
 'controllerMap' => [
        'cron' => [
@@ -38,7 +41,7 @@ to the require section of your `composer.json` file.
        ],
    ],
 ```
-- **Step 3:**  Add task to system scheduler (cron on unix, task scheduler on windows) to run every minute:
+- **Step 4:**  Add task to system scheduler (cron on unix, task scheduler on windows) to run every minute:
 
 ```sh
 * * * * * /path/to/yii/application/protected/yiic cron
