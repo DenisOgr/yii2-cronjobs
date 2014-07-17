@@ -1,4 +1,4 @@
-Yii2 crontab extension
+Yii2 cronjobs extension
 ========
 Easiest way to put crontab on your console scripts.
 
