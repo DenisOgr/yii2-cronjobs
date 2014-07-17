@@ -1,6 +1,15 @@
-cronjobs
+Yii2 crontab extension
 ========
-cronjobs
+Easiest way to put crontab on your console scripts.
+
+This extension is based on [this](https://github.com/Yiivgeny/Yii-PHPDocCrontab).
+Thanks [Yiivgeny](https://github.com/Yiivgeny).
+
+But with a few changes:
+- Work eith yii2
+- Set config in params (not in phpDocs).
+
+I transfer ​​settings of crontab in local settings(params) configuration, so that the application can be run on different servers with different sets of crontab.
 
 Installation
 ------------
@@ -20,8 +29,19 @@ or add
 ```
 
 to the require section of your `composer.json` file.
+Add in params array with cron sets:
+```
+'cronJobs' =>[
+        'test/example1' => [
+            'cron'      => '* * * * *',            
+        ],
+	'test/example2' => [
+            'cron'      => '10 * * * *',            
+        ],
 
-
+    ],
+```
+You can point any settings from [this](https://github.com/Yiivgeny/Yii-PHPDocCrontab/blob/master/examples/ExampleRuCommand.php).
 Usage
 -----
 
