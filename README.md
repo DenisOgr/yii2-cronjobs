@@ -50,12 +50,6 @@ Yii::setAlias('@runnerScript', dirname(dirname(dirname(__FILE__))) .'/yii');
 Usage
 -----
 
-
-Set aliase  @runnerScript in console config. This absolutely path to runner script (I can not find another way to get runner script).
-Change path to runner script as your project. 
-```
-Yii::setAlias('@runnerScript', dirname(dirname(dirname(__FILE__))) .'/yii');
-```
 Add in params array with cron sets:
 ```
 'cronJobs' =>[
