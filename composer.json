@@ -1,5 +1,5 @@
 {
-	"name": "denisog/yii2-cronjobs",
+	"name": "denisogr/yii2-cronjobs",
 	"description": "cronjobs",
 	"type": "yii2-extension",
 	"keywords": "['yii2','extension','cronjobs']",
