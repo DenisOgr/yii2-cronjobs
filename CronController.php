@@ -26,6 +26,13 @@ class CronController extends Controller {
      * @var string path to writing logs
      */
     public $logsDir = null;
+
+    /**
+     * Update or rewrite log file
+     * False - rewrite True - update(add to end logs)
+     * @var bool
+     */
+    public $updateLogFile = false;
     /**
      * Placeholders:
      *     %L - logsDir path
@@ -173,10 +180,11 @@ RAW;
      * @param string $stderr path to file for writing stderr
      */
     protected function runCommandBackground($command, $stdout, $stderr){
+        $concat = ($this->updateLogFile) ? ' >>' : ' >';
         $command =
             $this->interpreterPath.' '.
             $command.
-            ' >'.escapeshellarg($stdout).
+            $concat . escapeshellarg($stdout).
             ' 2>'.(($stdout === $stderr)?'&1':escapeshellarg($stderr));
 
         if ($this->isWindowsOS()){
