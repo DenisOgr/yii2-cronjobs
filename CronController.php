@@ -236,8 +236,14 @@ RAW;
                 else                                $stdout = $this->logFileName;
 
                 $stdout = $this->formatFileName($stdout, $task);
-                $stderr = isset($task['docs']['stderr'])?$this->formatFileName($task['docs']['stderr'], $task):$stdout;
+                if(!is_writable($stdout)) {
+                    $stdout = '/dev/null';
+                }
 
+                $stderr = isset($task['docs']['stderr'])?$this->formatFileName($task['docs']['stderr'], $task):$stdout;
+                if(!is_writable($stderr)) {
+                    $stdout = '/dev/null';
+                }
                 $this->runCommandBackground($command, $stdout, $stderr);
                 Yii::info('Running task ['.(++$runned).']: '.$task['command'].' '.$task['action']);
             }
@@ -305,15 +311,27 @@ RAW;
 
             foreach ($methods as $runCommand => $runSettings) {
                 $runCommand = explode('/', $runCommand);
-                if (count($runCommand) !== 2) {
+
+                if (count($runCommand) == 2) {
+                    $actions[] = array(
+                        'command' => $runCommand[0],
+                        'action'  => $runCommand[1],
+                        'docs'    => $this->parseDocComment($this->arrayToDocComment($runSettings))
+                    );
+                }
+                if (count($runCommand) == 3) {
+                    $actions[] = array(
+                        'command' => $runCommand[0] . '/' . $runCommand[1],
+                        'action'  => $runCommand[2],
+                        'docs'    => $this->parseDocComment($this->arrayToDocComment($runSettings))
+                    );
+                }
+
+                if(empty($actions)) {
                     continue;
                 }
 
-                $actions[] = array(
-                    'command' => $runCommand[0],
-                    'action'  => $runCommand[1],
-                    'docs'    => $this->parseDocComment($this->arrayToDocComment($runSettings))
-                );
+
             }
         }
         return $actions;
