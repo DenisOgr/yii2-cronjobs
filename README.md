@@ -19,13 +19,13 @@ Installation
 Either run
 
 ```
-php composer.phar require --prefer-dist denisogr/yii2-cronjobs "*"
+php composer.phar require --prefer-dist denisogr/yii2-cronjobs "dev-master"
 ```
 
 or add
 
 ```
-"denisogr/yii2-cronjobs": "*"
+"denisogr/yii2-cronjobs": "dev-master"
 ```
 
 to the require section of your `composer.json` file.
