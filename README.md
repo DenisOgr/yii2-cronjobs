@@ -62,6 +62,7 @@ Add in params array with cron sets:
 
     ],
 ```
+
 You can point any settings from [this](https://github.com/Yiivgeny/Yii-PHPDocCrontab/blob/master/examples/ExampleRuCommand.php).
 
 
