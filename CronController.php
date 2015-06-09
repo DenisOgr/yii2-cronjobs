@@ -213,13 +213,12 @@ RAW;
      */
     public function actionRun($args = array()){
 
-        //if no args enterred then use default
-        //else enter the string of args into the array
-        if (empty($args)){
-            $tags[] = 'default';
-        } else {
+        //always run default values
+        $tags[] = 'default';
+        //if we have specified args in input (cron-tags) insert them in array
+        if (!empty($args)){
             $tags[] = &$args;
-        }
+         }
 
         //Getting timestamp will be used as current
         $time = strtotime($this->timestamp);
