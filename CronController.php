@@ -212,8 +212,14 @@ RAW;
      * @param array $args List of run-tags to running actions (if empty, only "default" run-tag will be runned).
      */
     public function actionRun($args = array()){
-        $tags = &$args;
-        $tags[] = 'default';
+
+        //if no args enterred then use default
+        //else enter the string of args into the array
+        if (empty($args)){
+            $tags[] = 'default';
+        } else {
+            $tags[] = &$args;
+        }
 
         //Getting timestamp will be used as current
         $time = strtotime($this->timestamp);
