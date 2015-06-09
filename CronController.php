@@ -28,6 +28,11 @@ class CronController extends Controller {
     public $logsDir = null;
 
     /**
+     * @var string path for category for logging
+     */
+    public $logsCategory = 'yii2-cronjobs';
+
+    /**
      * Update or rewrite log file
      * False - rewrite True - update(add to end logs)
      * @var bool
@@ -214,7 +219,6 @@ RAW;
     public function actionRun($args = array()){
         $tags = &$args;
         $tags[] = 'default';
-
         //Getting timestamp will be used as current
         $time = strtotime($this->timestamp);
         if ($time === false) throw new CException('Bad timestamp format');
@@ -236,6 +240,11 @@ RAW;
                 else                                $stdout = $this->logFileName;
 
                 $stdout = $this->formatFileName($stdout, $task);
+                //if stdout does not exist then create the file
+                if (!file_exists($stdout)){
+                    touch($stdout);
+                }
+
                 if(!is_writable($stdout)) {
                     $stdout = '/dev/null';
                 }
@@ -244,15 +253,16 @@ RAW;
                 if(!is_writable($stderr)) {
                     $stdout = '/dev/null';
                 }
+
                 $this->runCommandBackground($command, $stdout, $stderr);
-                Yii::info('Running task ['.(++$runned).']: '.$task['command'].' '.$task['action']);
+                Yii::info('Running task ['.(++$runned).']: '.$task['command'].' '.$task['action'],$this->logsCategory);
             }
         }
         if ($runned > 0){
-            Yii::info('Runned '.$runned.' task(s) at '.date('r', $time));
+            Yii::info('Runned '.$runned.' task(s) at '.date('r', $time),$this->logsCategory);
         }
         else{
-            Yii::info('No task on '.date('r', $time));
+            Yii::info('No task on '.date('r', $time),$this->logsCategory);
         }
     }
 
