@@ -28,11 +28,6 @@ class CronController extends Controller {
     public $logsDir = null;
 
     /**
-     * @var string path for category for logging
-     */
-    public $logsCategory = 'yii2-cronjobs';
-
-    /**
      * Update or rewrite log file
      * False - rewrite True - update(add to end logs)
      * @var bool
@@ -240,6 +235,7 @@ RAW;
                 else                                $stdout = $this->logFileName;
 
                 $stdout = $this->formatFileName($stdout, $task);
+
                 //if stdout does not exist then create the file
                 if (!file_exists($stdout)){
                     touch($stdout);
@@ -255,14 +251,14 @@ RAW;
                 }
 
                 $this->runCommandBackground($command, $stdout, $stderr);
-                Yii::info('Running task ['.(++$runned).']: '.$task['command'].' '.$task['action'],$this->logsCategory);
+                Yii::info('Running task ['.(++$runned).']: '.$task['command'].' '.$task['action']);
             }
         }
         if ($runned > 0){
-            Yii::info('Runned '.$runned.' task(s) at '.date('r', $time),$this->logsCategory);
+            Yii::info('Runned '.$runned.' task(s) at '.date('r', $time));
         }
         else{
-            Yii::info('No task on '.date('r', $time),$this->logsCategory);
+            Yii::info('No task on '.date('r', $time));
         }
     }
 
