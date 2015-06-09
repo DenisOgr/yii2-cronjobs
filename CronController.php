@@ -240,6 +240,11 @@ RAW;
                 else                                $stdout = $this->logFileName;
 
                 $stdout = $this->formatFileName($stdout, $task);
+                //if stdout does not exist then create the file
+                if (!file_exists($stdout)){
+                    touch($stdout);
+                }
+
                 if(!is_writable($stdout)) {
                     $stdout = '/dev/null';
                 }
