@@ -30,10 +30,11 @@ or add
 
 to the require section of your `composer.json` file.
 - **Step 2:** Set aliase  @runnerScript in console config. This absolutely path to runner script (I can not find another way to get runner script).
-Change path to runner script as your project. 
+Change path to runner script as your project (For Yii2 Basic application). 
 ```
-Yii::setAlias('@runnerScript', dirname(dirname(dirname(__FILE__))) .'/yii');
+Yii::setAlias('@runnerScript', dirname(__DIR__) .'/yii');
 ```
+
 - **Step 3:** Add to console config:
 ```
 'controllerMap' => [
