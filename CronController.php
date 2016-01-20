@@ -14,6 +14,7 @@ use yii\console\Exception;
 
 class CronController extends Controller {
 
+    const CATEGORY_LOGS = 'cron_controller_logs';
     /**
      * @var string PHPDoc tag prefix for using by PHPDocCrontab extension.
      */
@@ -245,14 +246,13 @@ RAW;
                     $stdout = '/dev/null';
                 }
                 $this->runCommandBackground($command, $stdout, $stderr);
-                Yii::info('Running task ['.(++$runned).']: '.$task['command'].' '.$task['action']);
+                Yii::info('Running task ['.(++$runned).']: '.$task['command'].' '.$task['action'], self::CATEGORY_LOGS);
             }
         }
         if ($runned > 0){
-            Yii::info('Runned '.$runned.' task(s) at '.date('r', $time));
-        }
-        else{
-            Yii::info('No task on '.date('r', $time));
+            Yii::info('Runned '.$runned.' task(s) at '.date('r', $time), self::CATEGORY_LOGS);
+        } else {
+            Yii::info('No task on '.date('r', $time), self::CATEGORY_LOGS);
         }
     }
 
