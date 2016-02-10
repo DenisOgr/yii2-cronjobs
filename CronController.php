@@ -327,6 +327,14 @@ RAW;
                     );
                 }
 
+                if (count($runCommand) == 4) {
+                    $actions[] = array(
+                        'command' => $runCommand[0] . '/' . $runCommand[1] .  '/' . $runCommand[2],
+                        'action'  => $runCommand[3],
+                        'docs'    => $this->parseDocComment($this->arrayToDocComment($runSettings))
+                    );
+                }
+
                 if(empty($actions)) {
                     continue;
                 }
