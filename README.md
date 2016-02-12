@@ -89,7 +89,7 @@ Usage examples
     	'test/example1' => [
     	    'cron'        => '* * * * *',
     	    'cron-stdout' => '/tmp/Example_%C.%A.log'
-	],
+    	],
     ]
 ]
 ```
