@@ -7,7 +7,7 @@
 
 namespace denisog\cronjobs;
 
-use Yii;
+use yii;
 use yii\console\Controller;
 use yii\console\Exception;
 
@@ -216,9 +216,12 @@ RAW;
         $tags = &$args;
         $tags[] = 'default';
 
+        $isWin = $this->isWindowsOS();
+
         //Getting timestamp will be used as current
         $time = strtotime($this->timestamp);
         if ($time === false) throw new CException('Bad timestamp format');
+
         $now = explode(' ', date('i G j n w', $time));
         $runned = 0;
         foreach ($this->prepareActions() as $task) {
@@ -230,21 +233,31 @@ RAW;
 
                 //Forming command to run
                 $command = $this->bootstrapScript.' '.$task['command'].'/'.$task['action'];
-                if (isset($task['docs']['args'])) $command .= ' '.escapeshellcmd($task['docs']['args']);
+                if (isset($task['docs']['args']))
+                    $command .= ' '.escapeshellcmd($task['docs']['args']);
 
                 //Setting default stdout & stderr
-                if (isset($task['docs']['stdout'])) $stdout = $task['docs']['stdout'];
-                else                                $stdout = $this->logFileName;
+                if (isset($task['docs']['stdout']))
+                    $stdout = $task['docs']['stdout'];
+                else
+                    $stdout = $this->logFileName;
 
                 $stdout = $this->formatFileName($stdout, $task);
                 if(!is_writable($stdout)) {
-                    $stdout = '/dev/null';
+                    if ($isWin)
+                        $stdout = 'NUL';
+                    else
+                        $stdout = '/dev/null';
                 }
 
                 $stderr = isset($task['docs']['stderr'])?$this->formatFileName($task['docs']['stderr'], $task):$stdout;
                 if(!is_writable($stderr)) {
-                    $stdout = '/dev/null';
+                    if ($isWin)
+                        $stderr = 'NUL';
+                    else
+                        $stderr = '/dev/null';
                 }
+                
                 $this->runCommandBackground($command, $stdout, $stderr);
                 Yii::info('Running task ['.(++$runned).']: '.$task['command'].' '.$task['action'], self::CATEGORY_LOGS);
             }
@@ -338,8 +351,6 @@ RAW;
                 if(empty($actions)) {
                     continue;
                 }
-
-
             }
         }
         return $actions;
