@@ -89,7 +89,7 @@ class CronController extends Controller {
      * @return string the command description.
      */
     public function getHelp() {
-        $commandUsage = Yii::getAlias('@runnerScript').' '.$this->getName();
+        $commandUsage = Yii::getAlias('@runnerScript').' '.$this->id;
         return <<<RAW
 Usage: {$commandUsage} <action>
 
@@ -218,7 +218,7 @@ RAW;
 
         //Getting timestamp will be used as current
         $time = strtotime($this->timestamp);
-        if ($time === false) throw new CException('Bad timestamp format');
+        if ($time === false) throw new Exception('Bad timestamp format');
         $now = explode(' ', date('i G j n w', $time));
         $runned = 0;
         foreach ($this->prepareActions() as $task) {
