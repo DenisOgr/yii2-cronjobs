@@ -85,6 +85,14 @@ class CronController extends Controller {
     }
 
     /**
+     * Provides the command name.
+     * @return string the command name.
+     */
+    public function getName() {
+        return 'cron';
+    }
+
+    /**
      * Provides the command description.
      * @return string the command description.
      */
