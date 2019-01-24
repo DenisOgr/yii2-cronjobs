@@ -237,7 +237,7 @@ RAW;
                 else                                $stdout = $this->logFileName;
 
                 $stdout = $this->formatFileName($stdout, $task);
-                if(!is_writable($this->logsDir)) {
+                if(!is_writable(dirname($stdout))) {
                     $stdout = '/dev/null';
                 }
 
