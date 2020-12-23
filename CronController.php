@@ -237,7 +237,7 @@ RAW;
                 else                                $stdout = $this->logFileName;
 
                 $stdout = $this->formatFileName($stdout, $task);
-                if(!is_writable($this->logsDir)) {
+                if(!is_writable(dirname($stdout))) {
                     $stdout = '/dev/null';
                 }
 
@@ -282,7 +282,7 @@ RAW;
             array($this->logsDir, $task['command'], $task['action'], getmypid()),
             $pattern
         );
-        return preg_replace_callback('#%D\((.+)\)#U', create_function('$str', 'return date($str[1]);'), $pattern);
+        return preg_replace_callback('#%D\((.+)\)#U', function($str){return date($str[1]);}, $pattern);
     }
 
     /**
