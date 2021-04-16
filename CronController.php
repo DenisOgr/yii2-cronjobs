@@ -28,6 +28,8 @@ class CronController extends Controller {
      */
     public $logsDir = null;
 
+    public $logToFile = false;
+
     /**
      * Update or rewrite log file
      * False - rewrite True - update(add to end logs)
@@ -234,7 +236,7 @@ RAW;
 
                 //Setting default stdout & stderr
                 if (isset($task['docs']['stdout'])) $stdout = $task['docs']['stdout'];
-                else                                $stdout = $this->logFileName;
+                else                                $stdout = $this->logToFile ? $this->logFileName : '/dev/null';
 
                 $stdout = $this->formatFileName($stdout, $task);
                 if(!is_writable(dirname($stdout))) {
